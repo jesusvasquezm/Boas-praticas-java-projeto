@@ -1,17 +1,12 @@
 package br.com.estudos;
 
-import br.com.estudos.client.ClientHttpConfiguration;
-import br.com.estudos.service.AbrigoService;
-import br.com.estudos.service.PetService;
 import java.util.Scanner;
 
 public class AdopetConsoleApplication {
 
     public static void main(String[] args) {
         System.out.println("##### BOAS VINDAS AO SISTEMA ADOPET CONSOLE #####");
-        ClientHttpConfiguration client = new ClientHttpConfiguration();
-        AbrigoService abrigoService = new AbrigoService(client);
-        PetService petService = new PetService(client);
+        CommandExecutor commandExecutor = new CommandExecutor();
         try {
             int opcaoEscolhida = 0;
             while (opcaoEscolhida != 5) {
@@ -26,13 +21,13 @@ public class AdopetConsoleApplication {
                 opcaoEscolhida = Integer.parseInt(textoDigitado);
 
                 if (opcaoEscolhida == 1) {
-                    abrigoService.listarAbrigosCadastrados();
+                    commandExecutor.executorCommand(new ListarAbrigoCommand());
                 } else if (opcaoEscolhida == 2) {
-                    abrigoService.cadastrarNovoAbrigo();
+                    commandExecutor.executorCommand(new CadastrarNovoAbrigoCommand());
                 } else if (opcaoEscolhida == 3) {
-                    petService.listarPetsDoAbrigo();
+                    commandExecutor.executorCommand(new ListarPetDoAbrigoCommand());
                 } else if (opcaoEscolhida == 4) {
-                    petService.importarPetsDoAbrigo();
+                    commandExecutor.executorCommand(new ImportarPetDoAbrigoCommand());
                 } else if (opcaoEscolhida == 5) {
                     break;
                 } else {
